@@ -134,20 +134,18 @@ Create a Deployment Group:
 
 Deployment Group Name: Enter a name for the deployment group (e.g., MyAppDeploymentGroup).
 
-Service Role: This is the IAM role that gives CodeDeploy permissions to deploy to your EC2 instances. Create a new role if you don't have one:
+# Service Role: This is the IAM role that gives CodeDeploy permissions to deploy to your EC2 instances. Create a new role if you don't have one:
 
 Go to IAM and create a role with the service CodeDeploy.
 
 Attach the following policies to the role:
+```
+AWSCodeDeployRole
 
-### AWSCodeDeployRole
-
-### AmazonEC2RoleforAWSCodeDeploy
-
+AmazonEC2RoleforAWSCodeDeploy
+```
 Deployment Type:
 Choose:
-
-In-place: Deploys the new version of your app directly on the same EC2 instances (this causes downtime).
 
 Amazon EC2 Instances: Choose how the EC2 instances should be selected for deployment:
 
