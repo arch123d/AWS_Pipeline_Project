@@ -7,6 +7,7 @@ AWS Services use in this Project
 5. AWS EC2 (Ubuntu Instances)
 6. AWS S3
 7. AWS IAM (Role and User)
+# Architecture Of Project
 
 ![Project Architecture](https://github.com/user-attachments/assets/ec217c94-d250-41f1-976a-df1072f6d0ad)
 
