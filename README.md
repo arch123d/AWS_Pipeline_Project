@@ -80,13 +80,20 @@ sudo service nginx start
 2. Click Create Build Project.
 3. Configure the project:
 Project Name: MyAppBuild
+
 Source Provider: CodeCommit
+
 Repository: Select the repository created in Step 1.
+
 Environment: Select a managed image (e.g., Ubuntu).
+
 Buildspec: Add a buildspec.yml file in your repository for the build instructions.
-4. Create S3 Bucket MyProjectBucket
-5. In Artifacts:
+
+5. Create S3 Bucket MyProjectBucket
+6. In Artifacts:
+
 Choose Amazon S3.
+
 Select the bucket created in Step 2 for storing the build output.
 # Create an AWS CodeDeploy Application
 This step involves setting up AWS CodeDeploy to deploy your application on EC2 instances.
@@ -95,11 +102,15 @@ This step involves setting up AWS CodeDeploy to deploy your application on EC2 i
 Navigate to CodeDeploy:
 
 Open the AWS Management Console.
+
 In the search bar, type CodeDeploy and select it.
+
 Create the CodeDeploy Application:
 
 Click on Create Application.
+
 Application Name: Enter a name for the application (e.g., MyAppDeploy).
+
 Compute Platform: Select EC2/On-Premises as the platform because we are deploying to EC2 instances.
 # When We Create Instance Put Bellow File in USERDATA
 2. codedeploy-agent-install.sh (Note: Used Ubuntu Image)
@@ -122,26 +133,32 @@ sudo service codedeploy-agent status
 Create a Deployment Group:
 
 Deployment Group Name: Enter a name for the deployment group (e.g., MyAppDeploymentGroup).
+
 Service Role: This is the IAM role that gives CodeDeploy permissions to deploy to your EC2 instances. Create a new role if you don't have one:
+
 Go to IAM and create a role with the service CodeDeploy.
 
 Attach the following policies to the role:
-AWSCodeDeployRole
-AmazonEC2RoleforAWSCodeDeploy
+
+### AWSCodeDeployRole
+
+### AmazonEC2RoleforAWSCodeDeploy
 
 Deployment Type:
 Choose:
+
 In-place: Deploys the new version of your app directly on the same EC2 instances (this causes downtime).
 
 Amazon EC2 Instances: Choose how the EC2 instances should be selected for deployment:
+
 Tag Key/Value: You can select the EC2 instances by tags (e.g., Key: app, Value: MyApp).
 
-Choose between:
+Choose:
 
 All-at-once: Deploy to all instances simultaneously (results in a faster deployment but may cause more downtime).
 
 One-at-a-time: Deploy to one instance at a time, ensuring that at least some instances remain up during deployment.
-Monitoring: You can enable CloudWatch alarms to automatically stop or rollback the deployment if something goes wrong.
+
 Create the Application:
 
 Click Create Application once the configuration is complete.
@@ -152,40 +169,61 @@ Step-by-Step Guide:
 Navigate to CodePipeline:
 
 Open the AWS Management Console.
+
 In the search bar, type CodePipeline and select it.
+
 Create a Pipeline:
 
 Click on Create Pipeline.
+
 Pipeline Name: Enter a name for the pipeline (e.g., MyAppPipeline).
+
 Service Role: You can either:
+
 Use an existing role if you have a pre-configured IAM role.
 Or, let CodePipeline create a new service role with the necessary permissions.
+
 Artifact Store:
 
 This is where the build artifacts (like the .zip file created by CodeBuild) will be stored.
 Choose Amazon S3 as the artifact store.
 Select the S3 bucket created earlier in Step 2 (myapp-build-artifacts).
-Source Stage:
+#### Source Stage:
 
 This stage pulls the source code from CodeCommit.
+
 Source Provider: Select AWS CodeCommit.
+
 Repository Name: Select the repository created in Step 1 (MyAppRepo).
+
 Branch Name: Choose the branch from which you want to pull the source code (e.g., master).
+
 Click Next to proceed to the next stage.
-Build Stage:
+
+#### Build Stage:
 
 This stage uses CodeBuild to build the application and create the .zip file.
+
 Build Provider: Select AWS CodeBuild.
+
 Project Name: Select the build project you created earlier (MyAppBuild).
+
 CodeBuild will use the buildspec.yml file from the source repository to determine the build steps and create the output artifact.
+
 Click Next to proceed to the next stage.
-Deploy Stage:
+
+#### Deploy Stage:
 
 This stage uses CodeDeploy to deploy the build artifact to EC2 instances.
+
 Deploy Provider: Select AWS CodeDeploy.
+
 Application Name: Select the CodeDeploy application you created earlier (MyAppDeploy).
+
 Deployment Group: Select the deployment group created earlier (MyAppDeploymentGroup).
+
 CodeDeploy will now use the deployment settings specified (e.g., One-at-a-time or Blue/Green).
+
 Review and Create the Pipeline:
 
 Review all the settings and click Create Pipeline.
