@@ -186,7 +186,7 @@ Artifact Store:
 This is where the build artifacts (like the .zip file created by CodeBuild) will be stored.
 Choose Amazon S3 as the artifact store.
 Select the S3 bucket created earlier in Step 2 (myapp-build-artifacts).
-#### Source Stage:
+#### 1. Source Stage:
 
 This stage pulls the source code from CodeCommit.
 
@@ -198,7 +198,7 @@ Branch Name: Choose the branch from which you want to pull the source code (e.g.
 
 Click Next to proceed to the next stage.
 
-#### Build Stage:
+#### 2. Build Stage:
 
 This stage uses CodeBuild to build the application and create the .zip file.
 
@@ -210,7 +210,7 @@ CodeBuild will use the buildspec.yml file from the source repository to determin
 
 Click Next to proceed to the next stage.
 
-#### Deploy Stage:
+#### 3. Deploy Stage:
 
 This stage uses CodeDeploy to deploy the build artifact to EC2 instances.
 
