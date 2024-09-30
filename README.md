@@ -147,6 +147,8 @@ Attach the following policies to the role:
 AWSCodeDeployRole
 
 AmazonEC2RoleforAWSCodeDeploy
+
+AmazonS3FullAccess
 ```
 Deployment Type:
 Choose:
