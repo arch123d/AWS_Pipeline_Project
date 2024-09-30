@@ -27,7 +27,7 @@ AWS Services use in this Project
 cat > index.html
 <html><title>Shan</title>
 <body>
-    <h1> AWS Pipeline $localhost</h1>
+    <h1> AWS Pipeline $localhost-archu</h1>
 </body>
 </html> 
 ```
